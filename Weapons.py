@@ -1,6 +1,6 @@
-from Enum import Enum
+from enum import Enum
 
-from Effects import Effect
+from Effect import Effect
 
 class WeaponType(Enum):
     PISTOL = "Captain's Pistol"
@@ -12,9 +12,9 @@ class Weapon():
         self.name = ""
         self.effect = Effect()
         match weapontype:
-            case PISTOL:
+            case WeaponType.PISTOL:
                 self.name = "Captain's Pistol"
-            case EXTINGUISHER:
+            case WeaponType.EXTINGUISHER:
                 self.name = "Fire Extinguisher"
         
 

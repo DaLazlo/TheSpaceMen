@@ -1,4 +1,4 @@
-from Enum import Enum
+from enum import Enum
 
 from Weapons import *
 
@@ -13,13 +13,21 @@ class Room():
     def __init__(self, roomtype):
         inventory = []
         match roomtype:
-            case HALLWAY:
+            case RoomType.HALLWAY:
                 #build hallway
-            case ENGINEROOM:
+                pass
+            case RoomType.ENGINEROOM:
                 #build engineroom
-            case BRIDGE:
+                pass
+            case RoomType.BRIDGE:
                 # build bridge
-            case MESSHALL:
+                pass
+            case RoomType.MESSHALL:
                 # build messhall
-            case MEDBAY:
+                pass
+            case RoomType.MEDBAY:
                 # build medbay
+                pass
+
+    def take_turn(self):
+        pass
