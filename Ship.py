@@ -1,12 +1,16 @@
 from Room import Room, RoomType
 
 class Ship():
+    self.rooms = []
     def __init__(self):
-        self.Hallway = Room(RoomType.HALLWAY)
-        self.EngineRoom = Room(RoomType.ENGINEROOM)
-        self.Bridge = Room(RoomType.BRIDGE)
-        self.MessHall = Room(RoomType.MESSHALL)
-        self.MedBay = Room(RoomType.MEDBAY)
+        self.rooms.append(Room(RoomType.HALLWAY))
+        self.rooms.append(Room(RoomType.ENGINEROOM))
+        self.rooms.append(Room(RoomType.BRIDGE))
+        self.rooms.append(Room(RoomType.MESSHALL))
+        self.rooms.append(Room(RoomType.MEDBAY))
 
     def take_turn(self):
-        pass
+        for room in self.rooms:
+            room.take_turn()
+    
+        

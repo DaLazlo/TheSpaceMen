@@ -1,37 +1,26 @@
 from enum import Enum
 from random import randint
 
+from Alien import Alien
 
 class EffectType(Enum):
     DAMAGE1 = "Cause 1 Damage"
     DAMAGE2 = "Cause 2 Damage"
 
+def getRandomEffect():
+    match(randint(0,1)):
+        case 0:
+            return EffectType.DAMAGE1
+        case 1:
+            return EffectType.DAMAGE2
 
-class Effect():
-    def __init__(self):
-        pass
-
-    def attack(self, target):
-        match (randint(0,1)):
-            case 0:
-                self = Damage_One(target)
-            case 1:
-                self = Damage_Two(target)
-
-class Damage_One(Effect):
-    def __init__(self, target):
-        self.attack(target)
-    
-    def attack(self, target):
-        # do an attack one to target
-        pass
-
-class Damage_Two(Effect):
-    def __init__(self, target):
-        self.attack(target)
-    
-    def attack(self, target):
-        # do an attack two to target
-        pass
+def doEffect(effecType: EffectType, target: Alien):
+    match (effecType):
+        case EffectType.DAMAGE1:
+            target.takeDamage(1)
+        case EffectType.DAMAGE2:
+            target.takeDamage(2)
+        case _:
+            pass
 
 
