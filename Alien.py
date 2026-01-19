@@ -1,18 +1,40 @@
 
 from SpaceMan import SpaceMan
 
-from Effect import *
+from Effect import EffectType
+from Room import Room
 
 class Alien():
-    def __init__(self):
-        self.health = 2
-        self.name = "Alien"
+    def __init__(self, stage):
+        match (stage):
+            case 0:
+                self.health = 2
+                self.name = "Egg"
+                self.stage = 0
+            case 1:
+                self.health = 2
+                self.name = "Alien"
+                self.stage = 1
+            case 2:
+                self.health = 2
+                self.name = "Elder Alien"
+                self.stage = 2
     
     def attack(self, target: SpaceMan):
         target.takeDamage(1)
     
-    def grow(self):
-        pass
+    def grow(self, room: Room):
+        if self.stage == 0:
+            self.stage = 1
+            self.name = "Alien"
+        elif self.stage == 1:
+            self.stage = 2
+            self.name = "Elder Alien"
+        else:
+            room.aliens.append(Alien(0))
+            room.aliens.append(Alien(0))
+            room.aliens.remove(self)
+
 
     def applyEffect(self, effect: EffectType):
         match (effect):
@@ -23,4 +45,9 @@ class Alien():
 
     def takeDamage(self, damage):
         self.health -= damage
+
+    def move(self, room: Room):
+        destination = randint(0, len(room.destinations)-1)
+        room.destinations[destination].aliens.append(self)
+        room.aliens.remove(self)
     

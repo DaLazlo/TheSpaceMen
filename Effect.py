@@ -6,13 +6,20 @@ from Alien import Alien
 class EffectType(Enum):
     DAMAGE1 = "Cause 1 Damage"
     DAMAGE2 = "Cause 2 Damage"
+    NOTHING = "Nothing"
+
+BadEffects = [
+    EffectType.NOTHING,
+]
 
 def getRandomEffect():
-    match(randint(0,1)):
+    match(randint(0,2)):
         case 0:
             return EffectType.DAMAGE1
         case 1:
             return EffectType.DAMAGE2
+        case 2:
+            return EffectType.NOTHING
 
 def doEffect(effecType: EffectType, target: Alien):
     match (effecType):
