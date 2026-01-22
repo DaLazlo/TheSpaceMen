@@ -1,9 +1,12 @@
 from enum import Enum
 
-from Alien import Alien
+
 from Weapons import *
 from Effect import *
 from Room import Room
+from Alien import Alien
+
+from random import randint
 
 class Crew(Enum):
     CAPTAIN = "Captain Zog"
@@ -52,6 +55,11 @@ class SpaceMan():
             for weapon in room.inventory:
                 if not weapon.effect in BadEffects:
                     self.weapon = weapon
-                    room.inventory.remove(weapon)
+                    room.removeInventory(weapon)
                     return
+                
+    def move(self, room: Room):
+        destination = randint(0, len(room.destinations)-1)
+        room.destinations[destination].spacemen.append(self)
+        room.spacemen.remove(self)
         

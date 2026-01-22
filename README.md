@@ -1,3 +1,3 @@
 # TheSpaceMen
 
-An amusement simuating a battle between spacement and aliens on a specaship
+An amusement simulating a battle between spacemen and aliens on a specaship

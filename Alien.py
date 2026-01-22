@@ -1,5 +1,5 @@
 
-from SpaceMan import SpaceMan
+from random import randint
 
 from Effect import EffectType
 from Room import Room
@@ -20,7 +20,7 @@ class Alien():
                 self.name = "Elder Alien"
                 self.stage = 2
     
-    def attack(self, target: SpaceMan):
+    def attack(self, target):
         target.takeDamage(1)
     
     def grow(self, room: Room):

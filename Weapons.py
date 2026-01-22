@@ -1,7 +1,5 @@
 from enum import Enum
 
-from Effect import Effect, EffectType
-
 class WeaponType(Enum):
     PISTOL = "Captain's Pistol"
     EXTINGUISHER = "Fire Extinguisher"
