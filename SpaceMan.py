@@ -6,7 +6,7 @@ from Effect import *
 from Room import Room
 from Alien import Alien
 
-from random import randint
+from random import randint, choice
 
 class Crew(Enum):
     CAPTAIN = "Captain Zog"
@@ -32,16 +32,19 @@ class SpaceMan():
 
     def takeDamage(self, damage):
         self.health -= damage
+        print(f"{self.name} takes {damage} damage")
     
     def attack(self, target: Alien):
         if self.weapon != None:
             if self.weapon.effect == None:
                 self.weapon.effect = getRandomEffect()
+                print(f"{self.weapon.name} is discovered to have {self.weapon.effect.value} effect")
+            print(f"{self.name} attacks {target.name} with {self.weapon.name} (effect: {self.weapon.effect.value})")
             target.applyEffect(self.weapon.effect)
         else:
             if SpaceMan.punchEffect == None:
                 SpaceMan.punchEffect == getRandomEffect()
-            if not SpaceMan.punchEffect in BadEffects:
+            elif not SpaceMan.punchEffect in BadEffects:
                 target.applyEffect(SpaceMan.punchEffect)
     
     def act(self, room: Room):
@@ -51,15 +54,18 @@ class SpaceMan():
                 if not weapon.effect in BadEffects:
                     self.weapon = weapon
                     room.removeInventory(weapon)
+                    print(f"{self.name} picks up {self.weapon.name}")
                     return
         # drop ineffective weapon
-        if self.weapon.effect in BadEffects:
+        elif self.weapon.effect in BadEffects:
+            print(f"{self.name} drops {self.weapon.name} since it is useless")
             room.addInventory(self.weapon)
             self.weapon = None
             return
                 
     def move(self, room: Room):
-        destination = randint(0, len(room.destinations)-1)
-        room.destinations[destination].spacemen.append(self)
+        destination = choice(room.destinations)
+        print(f"{self.name} moves from {room.name} to {destination.name}")
+        destination.spacemen.append(self)
         room.spacemen.remove(self)
         

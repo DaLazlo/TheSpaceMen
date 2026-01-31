@@ -4,7 +4,7 @@ from random import randint
 class EffectType(Enum):
     DAMAGE1 = "Cause 1 Damage"
     DAMAGE2 = "Cause 2 Damage"
-    NOTHING = "Nothing"
+    NOTHING = "No"
 
 BadEffects = [
     EffectType.NOTHING,
@@ -23,8 +23,10 @@ def doEffect(effectType: EffectType, target):
     match (effectType):
         case EffectType.DAMAGE1:
             target.takeDamage(1)
+            print(f"{target.name} takes 1 damage")
         case EffectType.DAMAGE2:
             target.takeDamage(2)
+            print(f"{target.name} takes 2 damage")
         case _:
             pass
 

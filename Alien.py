@@ -1,5 +1,5 @@
 
-from random import randint
+from random import randint, choice
 
 from Effect import EffectType
 from Room import Room
@@ -22,6 +22,7 @@ class Alien():
     
     def attack(self, target):
         target.takeDamage(1)
+        print(f"{self.name} attacks {target.name}")
     
     def grow(self, room: Room):
         if self.stage == 0:
@@ -45,9 +46,15 @@ class Alien():
 
     def takeDamage(self, damage):
         self.health -= damage
+        print(f"{self.name} takes {damage} damage")
+        if self.health < 1:
+            self.stage = -1
 
     def move(self, room: Room):
-        destination = randint(0, len(room.destinations)-1)
-        room.destinations[destination].aliens.append(self)
+        if self.stage == 0:
+            return
+        destination = choice(room.destinations)
+        print(f"{self.name} moves from {room.name} to {destination.name}")
+        destination.aliens.append(self)
         room.aliens.remove(self)
     
