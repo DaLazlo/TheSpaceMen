@@ -6,10 +6,16 @@ def main():
     theship = Ship()
     finished = False
     count = 0
-    while not finished:
-        theship.take_turn(count)
+    while count < 5:
+        theship.setup(count)
         count += 1
-
+    while True:
+        theship.take_turn()
+        count += 1
+        if finished:
+            break
+        if count > 10:
+            break
 
 
 

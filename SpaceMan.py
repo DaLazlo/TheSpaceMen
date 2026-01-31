@@ -45,11 +45,6 @@ class SpaceMan():
                 target.applyEffect(SpaceMan.punchEffect)
     
     def act(self, room: Room):
-        # drop ineffective weapon
-        if self.weapon.effect in BadEffects:
-            room.addInventory(self.weapon)
-            self.weapon = None
-            return
         # pick up a (good) weapon if I don't have one
         if self.weapon == None:
             for weapon in room.inventory:
@@ -57,6 +52,11 @@ class SpaceMan():
                     self.weapon = weapon
                     room.removeInventory(weapon)
                     return
+        # drop ineffective weapon
+        if self.weapon.effect in BadEffects:
+            room.addInventory(self.weapon)
+            self.weapon = None
+            return
                 
     def move(self, room: Room):
         destination = randint(0, len(room.destinations)-1)

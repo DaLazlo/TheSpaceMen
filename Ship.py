@@ -1,4 +1,4 @@
-from random import randint
+from random import randint, choice
 
 from Room import *
 from SpaceMan import *
@@ -8,41 +8,38 @@ from Effect import *
 
 class Ship():
     def __init__(self):
-        self.rooms = []
-        self.rooms.append(Room(RoomType.HALLWAY))
-        self.rooms.append(Room(RoomType.ENGINEROOM))
-        self.rooms.append(Room(RoomType.BRIDGE))
-        self.rooms.append(Room(RoomType.MESSHALL))
-        self.rooms.append(Room(RoomType.MEDBAY))
+        self.rooms = {}
 
     def turn_zero(self):
-        for room in self.rooms:
-            match (room.type):
-                case RoomType.BRIDGE:
-                    room.spacemen.append(SpaceMan(Crew.CAPTAIN))
-                    room.addInventory(Weapon(WeaponType.PISTOL))
-                case RoomType.ENGINEROOM:
-                    room.spacemen.append(SpaceMan(Crew.ENGINEER))
-                    room.addInventory(Weapon(WeaponType.EXTINGUISHER))
-                case RoomType.MEDBAY:
-                    room.spacemen.append(SpaceMan(Crew.MEDIC))
-                    room.addInventory(Weapon(WeaponType.SYRINGE))
-                case RoomType.MESSHALL:
-                    room.spacemen.append(SpaceMan(Crew.COOK))
-                    room.addInventory(Weapon(WeaponType.CLEAVER))
+        for room in RoomType:
+            self.rooms[RoomType.HALLWAY] = Room(RoomType.HALLWAY)
+            self.rooms[RoomType.BRIDGE] = Room(RoomType.BRIDGE)
+            self.rooms[RoomType.ENGINEROOM] = Room(RoomType.ENGINEROOM)
+            self.rooms[RoomType.MEDBAY] = Room(RoomType.MEDBAY)
+            self.rooms[RoomType.MESSHALL] = Room(RoomType.MESSHALL)
+        
+        self.rooms[RoomType.HALLWAY].destinations = [   self.rooms[RoomType.BRIDGE], 
+                                                        self.rooms[RoomType.ENGINEROOM], 
+                                                        self.rooms[RoomType.MEDBAY], 
+                                                        self.rooms[RoomType.MESSHALL] ]
+        self.rooms[RoomType.BRIDGE].destinations = [    self.rooms[RoomType.HALLWAY] ]
+        self.rooms[RoomType.ENGINEROOM].destinations = [    self.rooms[RoomType.HALLWAY] ]
+        self.rooms[RoomType.MEDBAY].destinations = [    self.rooms[RoomType.HALLWAY] ]
+        self.rooms[RoomType.MESSHALL].destinations = [    self.rooms[RoomType.HALLWAY] ]
+            
+
 
     def setup(self, count):
         if count == 0:
-            turn_zero()
+            self.turn_zero()
         else:
-            match(randint(0, len(self.rooms)-1)):
-                case 0:
-                    self.rooms[0].aliens.append(Alien(1))
-                    print(f"Spawned alien in {self.rooms[0].name}")
+            someplace = choice(list(RoomType))
+            self.rooms[someplace].aliens.append(Alien(1))
+            print(f"Spawned alien in {someplace}")
 
     def take_turn(self):
-        for room in self.rooms:
-            room.take_turn()
+        for room in self.rooms.keys():
+            self.rooms[room].take_turn()
 
 
         
