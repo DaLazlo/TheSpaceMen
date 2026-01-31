@@ -34,13 +34,13 @@ class SpaceMan():
         self.health -= damage
         print(f"{self.name} takes {damage} damage")
     
-    def attack(self, target: Alien):
+    def attack(self, target: Alien, room: Room):
         if self.weapon != None:
             if self.weapon.effect == None:
                 self.weapon.effect = getRandomEffect()
                 print(f"{self.weapon.name} is discovered to have {self.weapon.effect.value} effect")
             print(f"{self.name} attacks {target.name} with {self.weapon.name} (effect: {self.weapon.effect.value})")
-            target.applyEffect(self.weapon.effect)
+            target.applyEffect(self.weapon.effect, room)
         else:
             if SpaceMan.punchEffect == None:
                 SpaceMan.punchEffect == getRandomEffect()

@@ -46,7 +46,7 @@ class Room():
         # attack, spacemen first
         for spaceman in self.spacemen:
             if len(self.aliens) > 0:
-                spaceman.attack(self.aliens[0])
+                spaceman.attack(self.aliens[0], self)
                 if self.aliens[0].stage == -1:
                     dead = self.aliens.pop()
                     print(f"{spaceman.name} killed {dead.name}")

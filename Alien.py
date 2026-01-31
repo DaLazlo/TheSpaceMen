@@ -21,6 +21,8 @@ class Alien():
                 self.stage = 2
     
     def attack(self, target):
+        if self.stage == 0:
+            return
         target.takeDamage(1)
         print(f"{self.name} attacks {target.name}")
     
@@ -37,12 +39,17 @@ class Alien():
             room.aliens.remove(self)
 
 
-    def applyEffect(self, effect: EffectType):
+    def applyEffect(self, effect: EffectType, room: Room):
         match (effect):
             case EffectType.DAMAGE1:
                 self.takeDamage(1)
             case EffectType.DAMAGE2:
                 self.takeDamage(2)
+            case EffectType.NOTHING:
+                print("Takes no damage at all")
+            case EffectType.GROW:
+                print("The aliens grows!")
+                self.grow(room)
 
     def takeDamage(self, damage):
         self.health -= damage
